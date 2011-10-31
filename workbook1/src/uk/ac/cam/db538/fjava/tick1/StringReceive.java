@@ -9,11 +9,19 @@ import java.net.UnknownHostException;
 public class StringReceive {
 
 	public static void main(String[] args) {
-		if (args.length != 2)
+		if (args.length != 2) {
 			System.err.println("This application requires two arguments: <machine> <port>");
+			return;
+		}
 		
 		String machine = args[0];
-		int port = Integer.parseInt(args[1]);
+		int port = 0;
+		try {
+			port = Integer.parseInt(args[1]);
+		} catch (NumberFormatException ex) {
+			System.err.println("This application requires two arguments: <machine> <port>");
+			return;
+		}
 		
 		try {
 			Socket socket = new Socket(machine, port);
@@ -23,6 +31,7 @@ public class StringReceive {
 				System.out.println(reader.readLine());
 			}
 		} catch (NumberFormatException e) {
+			System.err.println("Cannot connect to " + machine + " on port " + port);
 		} catch (UnknownHostException e) {
 			System.err.println("Cannot connect to " + machine + " on port " + port);
 		} catch (IOException e) {

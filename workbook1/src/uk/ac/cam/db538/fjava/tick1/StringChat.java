@@ -12,11 +12,18 @@ public class StringChat {
 		String server = null;
 		int port = 0;
 		
-		if (args.length != 2)
+		if (args.length != 2) {
 			System.err.println("This application requires two arguments: <machine> <port>");
+			return;
+		}
 		
 		server = args[0];
-		port = Integer.parseInt(args[1]);
+		try {
+			port = Integer.parseInt(args[1]);
+		} catch (NumberFormatException ex) {
+			System.err.println("This application requires two arguments: <machine> <port>");
+			return;
+		}
 
 		/* 
 		 *  Socket is declared final because it is referenced inside
@@ -42,6 +49,7 @@ public class StringChat {
 			while (true)
 				w.println(r.readLine());
 		} catch (NumberFormatException e) {
+			System.err.println("Cannot connect to " + server + " on port " + port);
 		} catch (UnknownHostException e) {
 			System.err.println("Cannot connect to " + server + " on port " + port);
 		} catch (IOException e) {
