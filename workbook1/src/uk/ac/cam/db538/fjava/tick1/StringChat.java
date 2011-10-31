@@ -37,11 +37,10 @@ public class StringChat {
 			};
 			output.setDaemon(true);
 			output.start();
-			
-			PrintWriter w = new PrintWriter(s.getOutputStream(), true);
+			PrintWriter w = new PrintWriter(s.getOutputStream(), true);			
 			BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
 			while (true)
-				w.write(r.readLine());
+				w.println(r.readLine());
 		} catch (NumberFormatException e) {
 		} catch (UnknownHostException e) {
 			System.err.println("Cannot connect to " + server + " on port " + port);
